@@ -405,3 +405,58 @@ html,body{overflow-x:hidden;width:100%}
   84%{opacity:.85;transform:translate3d(calc(var(--dx)*1.2),calc(var(--dy)*1.2),0) rotate(calc(var(--rot)*.84)) scale(1)}
   100%{opacity:0;transform:translate3d(calc(var(--dx)*1.4),calc(var(--dy)*1.4),0) rotate(var(--rot)) scale(1)}
 }
+/* idea: the seed story, three short steps */
+.story{display:grid;justify-items:center;gap:clamp(10px,2vh,20px);width:100%}
+.story .sv{width:min(100%,520px);max-height:42vh;height:auto;overflow:visible}
+.story .lines{font:800 clamp(24px,3.4vw,40px)/1.15 var(--text);letter-spacing:-.02em;text-align:center;color:inherit}
+.story .seedwrap{width:min(70%,560px)}
+.sv .ground{stroke:#94A3B8;stroke-width:2;stroke-dasharray:4 7}
+.sv .tree *{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.sv .tree{transform-box:fill-box;transform-origin:50% 100%;animation:grow 1s var(--ease) both}
+.sv .t2{animation-delay:.18s}.sv .t3{animation-delay:.36s}
+@keyframes grow{from{opacity:0;transform:scaleY(.05)}to{opacity:1;transform:none}}
+.sv .orbit{fill:none;stroke:#94A3B8;stroke-width:2;stroke-dasharray:6 8;transform-box:fill-box;transform-origin:center;animation:orbit 40s linear infinite,fadein .8s both}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.sv .lab{font:700 20px var(--text);fill:var(--ink);opacity:0;animation:fadein .6s var(--ease) both}
+.sv .l1{animation-delay:.2s}.sv .l2{animation-delay:.4s}.sv .l3{animation-delay:.6s}.sv .l4{animation-delay:.8s}
+@media(prefers-reduced-motion:reduce){.sv .tree,.sv .lab,.sv .orbit{animation:none;opacity:1}}
+@media(max-width:700px){.story .sv{max-height:none}.sv .lab{font-size:22px}}
+
+/* tab panels (generated for every tab group) */
+.tabs:has(#id-0:checked) #id-p0{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#id-0:checked) label[for="id-0"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#id-1:checked) #id-p1{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#id-1:checked) label[for="id-1"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#id-2:checked) #id-p2{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#id-2:checked) label[for="id-2"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#lg-0:checked) #lg-p0{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#lg-0:checked) label[for="lg-0"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#lg-1:checked) #lg-p1{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#lg-1:checked) label[for="lg-1"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#lg-2:checked) #lg-p2{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#lg-2:checked) label[for="lg-2"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#lg-3:checked) #lg-p3{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#lg-3:checked) label[for="lg-3"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#lg-4:checked) #lg-p4{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#lg-4:checked) label[for="lg-4"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#lg-5:checked) #lg-p5{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#lg-5:checked) label[for="lg-5"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#ic-0:checked) #ic-p0{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#ic-0:checked) label[for="ic-0"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#ic-1:checked) #ic-p1{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#ic-1:checked) label[for="ic-1"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#ic-2:checked) #ic-p2{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#ic-2:checked) label[for="ic-2"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#iu-0:checked) #iu-p0{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#iu-0:checked) label[for="iu-0"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#iu-1:checked) #iu-p1{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#iu-1:checked) label[for="iu-1"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#iu-2:checked) #iu-p2{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#iu-2:checked) label[for="iu-2"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#iu-3:checked) #iu-p3{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#iu-3:checked) label[for="iu-3"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+.tabs:has(#iu-4:checked) #iu-p4{display:block!important;animation:swap .22s var(--ease)}
+.tabs:has(#iu-4:checked) label[for="iu-4"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
+/* section header strips: more seeds, clearly visible on the dark ground */
+.title .sd{fill:rgba(241,245,249,.38)!important}
