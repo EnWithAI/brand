@@ -33,18 +33,24 @@
         var oy=lr.top-fr.top+lr.height*0.22;
         origins=[lr.left-fr.left+lr.width*0.496, lr.left-fr.left+lr.width*0.949].map(function(x){return {x:x,y:oy}});
       }
-      var small=fr.width<600, R=Math.min(fr.width,fr.height*1.2)*0.5;
+      var small=fr.width<600;
+      /* even coverage: one jittered target per cell of a grid over the section, shuffled; each seed flies from an i-dot to its cell */
+      var cols=Math.max(2,Math.round(Math.sqrt(n*fr.width/fr.height))), rows=Math.ceil(n/cols), cells=[];
+      for(var r=0;r<rows;r++) for(var c=0;c<cols;c++) cells.push([c,r]);
+      for(var k=cells.length-1;k>0;k--){var m=Math.floor(Math.random()*(k+1)),t=cells[k];cells[k]=cells[m];cells[m]=t;}
+      var cw=fr.width/cols, ch=fr.height/rows;
       for(var i=0;i<n;i++){
-        var ang=(i/n)*Math.PI*2+Math.random()*0.9, dist=R*(0.45+Math.random()*0.75);
+        var cell=cells[i%cells.length];
+        var tx=(cell[0]+0.15+Math.random()*0.7)*cw, ty=(cell[1]+0.15+Math.random()*0.7)*ch;
+        var o=origins?origins[i%2]:{x:fr.width/2,y:fr.height/2};
         var el=d.createElementNS(NS,'svg');
         el.setAttribute('viewBox','341 -50 33 41'); el.setAttribute('class','sd');
         var p=d.createElementNS(NS,'path'); p.setAttribute('d',SEED); el.appendChild(p);
-        var size=(small?12:16)+Math.random()*(small?18:28), dur=18+Math.random()*16, o=origins?origins[i%2]:{x:fr.width/2,y:fr.height/2};
+        var size=(small?11:14)+Math.random()*(small?8:10), dur=18+Math.random()*16;   /* small, constant size: always reads as a seed */
         el.style.cssText='width:'+size.toFixed(1)+'px;height:'+(size*1.24).toFixed(1)+'px;'+
           'left:'+o.x.toFixed(1)+'px;top:'+o.y.toFixed(1)+'px;'+
-          '--dx:'+(Math.cos(ang)*dist).toFixed(0)+'px;--dy:'+(Math.sin(ang)*dist*0.9).toFixed(0)+'px;'+
-          '--rot:'+Math.round((Math.random()<.5?-1:1)*(180+Math.random()*540))+'deg;'+
-          '--fx:'+Math.round(Math.random()*540)+'deg;--fy:'+Math.round(Math.random()*720)+'deg;'+
+          '--dx:'+(tx-o.x).toFixed(0)+'px;--dy:'+(ty-o.y).toFixed(0)+'px;'+
+          '--rot:'+Math.round((Math.random()<.5?-1:1)*(120+Math.random()*420))+'deg;'+
           'animation-duration:'+dur.toFixed(1)+'s;animation-delay:-'+(Math.random()*dur).toFixed(1)+'s';
         f.appendChild(el);
       }

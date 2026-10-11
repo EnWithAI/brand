@@ -369,3 +369,14 @@ html,body{overflow-x:hidden;width:100%}
 .seedfield{clip-path:inset(0);contain:strict}
 .slide .faces,.slide .face{min-width:0;max-width:100%;box-sizing:border-box}
 .face .aa{max-width:100%;overflow:hidden}
+
+/* seeds keep their shape: 2D spin only, no squashing flips, no growth */
+@keyframes spill{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(0) scale(.7)}
+  10%{opacity:.9}
+  75%{opacity:.8}
+  100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0) rotate(var(--rot)) scale(1)}
+}
+.sd{transform-style:flat!important}
+/* leave the dot quickly, then drift around the target: coverage stays even */
+.sd{animation-timing-function:cubic-bezier(.08,.8,.22,1)!important}
