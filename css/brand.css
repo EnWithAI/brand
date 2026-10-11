@@ -460,3 +460,9 @@ html,body{overflow-x:hidden;width:100%}
 .tabs:has(#iu-4:checked) label[for="iu-4"]{background:var(--steel);border-color:var(--steel);color:var(--paper)}
 /* section header strips: more seeds, clearly visible on the dark ground */
 .title .sd{fill:rgba(241,245,249,.38)!important}
+/* idea: more air between the drawing and its words */
+.story{gap:clamp(26px,5.5vh,56px)}
+.story .lines{line-height:1.38;letter-spacing:-.01em}
+.story .seedwrap{gap:clamp(26px,5.5vh,56px)}
+.story .seedwrap .lines{margin-top:0}
+.story .sv{margin-bottom:clamp(0px,1vh,10px)}

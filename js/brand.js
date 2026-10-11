@@ -22,8 +22,9 @@
   /* seeds spill out in every direction, rotating and flipping. On the landing they leave the two i-dots of the logo. */
   var SEED='M346.38 -49.28L345.57 -48.75L344.91 -47.95L344.31 -46.76L343.80 -45.26L343.24 -43.06L342.73 -40.44L341.77 -33.68L341.37 -28.48L341.38 -23.84L341.58 -21.62L341.84 -19.98L342.32 -17.98L342.83 -16.52L343.45 -15.20L344.16 -14.03L345.01 -12.95L345.68 -12.27L346.73 -11.41L347.86 -10.73L348.75 -10.31L350.05 -9.86L352.55 -9.43L354.08 -9.37L355.71 -9.47L358.53 -9.96L360.22 -10.43L361.89 -11.04L363.53 -11.77L365.11 -12.62L366.61 -13.57L368.02 -14.61L369.30 -15.74L370.46 -16.94L371.47 -18.20L372.29 -19.48L372.97 -20.83L373.34 -21.80L373.70 -23.16L373.89 -24.57L373.92 -25.57L373.79 -27.00L373.49 -28.42L373.02 -29.84L372.38 -31.23L371.32 -33.03L370.34 -34.40L368.89 -36.11L365.94 -38.99L364.12 -40.52L361.78 -42.30L359.43 -43.93L356.72 -45.66L354.20 -47.11L351.94 -48.25L350.00 -49.04L348.62 -49.42L347.38 -49.51Z';
   var calm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function spawn(){
-    d.querySelectorAll('.seedfield').forEach(function(f){
+  function spawn(only){
+    (only?[only]:[].slice.call(d.querySelectorAll('.seedfield'))).forEach(function(f){
+      if(!f.getBoundingClientRect().width) return;   /* paused / off-screen: filled when it comes into view */
       f.innerHTML='';
       var n=parseInt(f.getAttribute('data-n'),10)||12, NS='http://www.w3.org/2000/svg';
       var fr=f.getBoundingClientRect(); if(!fr.width||!fr.height) return;
@@ -58,8 +59,9 @@
   }
   if(!calm){
     root.classList.add('seeds-live');
-    spawn(); window.addEventListener('load',spawn); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(spawn);
-    var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(spawn,250)});
+    window.__spawnSeeds=spawn;
+    spawn(); window.addEventListener('load',function(){spawn()}); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){spawn()});
+    var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){spawn()},250)});
   }
 
   /* sections: native scrolling with CSS snap. JS only restores the section on refresh and keeps the URL in step. */
@@ -91,7 +93,7 @@
   /* only seed fields that are on screen are animated */
   if('IntersectionObserver' in window){
     d.querySelectorAll('.seedfield').forEach(function(f){
-      new IntersectionObserver(function(es){es.forEach(function(e){f.classList.toggle('idle',!e.isIntersecting)})},{rootMargin:'100px 0px'}).observe(f.parentNode);
+      new IntersectionObserver(function(es){es.forEach(function(e){f.classList.toggle('idle',!e.isIntersecting); if(e.isIntersecting&&!f.children.length&&window.__spawnSeeds) window.__spawnSeeds(f);})},{rootMargin:'100px 0px'}).observe(f.parentNode);
     });
   }
 })();
