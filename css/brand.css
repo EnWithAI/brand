@@ -380,3 +380,12 @@ html,body{overflow-x:hidden;width:100%}
 .sd{transform-style:flat!important}
 /* leave the dot quickly, then drift around the target: coverage stays even */
 .sd{animation-timing-function:cubic-bezier(.08,.8,.22,1)!important}
+/* seeds appear only after leaving the logo: no crowd around the wordmark */
+@keyframes spill{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(0) scale(.7)}
+  7%{opacity:0;transform:translate3d(calc(var(--dx)*.5),calc(var(--dy)*.5),0) rotate(calc(var(--rot)*.08)) scale(.8)}
+  20%{opacity:.9;transform:translate3d(calc(var(--dx)*.82),calc(var(--dy)*.82),0) rotate(calc(var(--rot)*.22)) scale(1)}
+  80%{opacity:.85;transform:translate3d(var(--dx),var(--dy),0) rotate(calc(var(--rot)*.8)) scale(1)}
+  100%{opacity:0;transform:translate3d(calc(var(--dx)*1.05),calc(var(--dy)*1.05),0) rotate(var(--rot)) scale(1)}
+}
+.sd{animation-timing-function:linear!important}
