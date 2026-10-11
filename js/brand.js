@@ -83,6 +83,7 @@
     window.addEventListener('scroll',function(){
       clearTimeout(urlT);
       urlT=setTimeout(function(){
+        if(window.__spawnSeeds) d.querySelectorAll('.seedfield').forEach(function(f){ if(!f.children.length && f.getBoundingClientRect().width) window.__spawnSeeds(f); });
         var s=nearest(); if(Math.abs(top(s)-window.scrollY)>4) return;
         var h=s.classList.contains('landing')?location.pathname+location.search:'#'+s.id;
         try{ history.replaceState(null,'',h); }catch(e){}
