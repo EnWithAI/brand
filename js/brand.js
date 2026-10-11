@@ -46,7 +46,7 @@
         var el=d.createElementNS(NS,'svg');
         el.setAttribute('viewBox','341 -50 33 41'); el.setAttribute('class','sd');
         var p=d.createElementNS(NS,'path'); p.setAttribute('d',SEED); el.appendChild(p);
-        var size=(small?11:14)+Math.random()*(small?8:10), dur=24+Math.random()*18;   /* small, constant size: always reads as a seed */
+        var size=(small?11:14)+Math.random()*(small?8:10), dur=16+Math.random()*12;   /* small, constant size: always reads as a seed */
         el.style.cssText='width:'+size.toFixed(1)+'px;height:'+(size*1.24).toFixed(1)+'px;'+
           'left:'+o.x.toFixed(1)+'px;top:'+o.y.toFixed(1)+'px;'+
           '--dx:'+(tx-o.x).toFixed(0)+'px;--dy:'+(ty-o.y).toFixed(0)+'px;'+

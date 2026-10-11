@@ -395,3 +395,13 @@ html,body{overflow-x:hidden;width:100%}
   .slide .avatars{gap:14px;flex-wrap:nowrap}
   .slide .avatars img{width:min(38vw,170px)}
 }
+/* lighter highlight circles around the seeds */
+.ring,.blk .ring{stroke:#94A3B8!important;stroke-width:2!important}
+/* steady, visible travel for the whole life of a seed: nothing parks */
+@keyframes spill{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(0) scale(.7)}
+  6%{opacity:0;transform:translate3d(calc(var(--dx)*.25),calc(var(--dy)*.25),0) rotate(calc(var(--rot)*.06)) scale(.8)}
+  16%{opacity:.9;transform:translate3d(calc(var(--dx)*.5),calc(var(--dy)*.5),0) rotate(calc(var(--rot)*.16)) scale(1)}
+  84%{opacity:.85;transform:translate3d(calc(var(--dx)*1.2),calc(var(--dy)*1.2),0) rotate(calc(var(--rot)*.84)) scale(1)}
+  100%{opacity:0;transform:translate3d(calc(var(--dx)*1.4),calc(var(--dy)*1.4),0) rotate(var(--rot)) scale(1)}
+}
