@@ -389,3 +389,9 @@ html,body{overflow-x:hidden;width:100%}
   100%{opacity:0;transform:translate3d(calc(var(--dx)*1.05),calc(var(--dy)*1.05),0) rotate(var(--rot)) scale(1)}
 }
 .sd{animation-timing-function:linear!important}
+/* small phones: sections grow with their content, avatars scale to the screen */
+@media(max-width:700px){
+  .slide{height:auto!important;overflow:visible!important}
+  .slide .avatars{gap:14px;flex-wrap:nowrap}
+  .slide .avatars img{width:min(38vw,170px)}
+}
