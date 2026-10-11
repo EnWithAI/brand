@@ -26,21 +26,23 @@
     d.querySelectorAll('.seedfield').forEach(function(f){
       f.innerHTML='';
       var n=parseInt(f.getAttribute('data-n'),10)||12, NS='http://www.w3.org/2000/svg';
-      var fr=f.getBoundingClientRect(), origins=null, logo=f.parentNode.querySelector('.build');
+      var fr=f.getBoundingClientRect(); if(!fr.width||!fr.height) return;
+      var logo=f.parentNode.querySelector('.build'), origins=null;
       if(logo){
-        var lr=logo.getBoundingClientRect();           /* the two i-dots sit at 49.6% and 94.9% of the wordmark width, 22% down */
+        var lr=logo.getBoundingClientRect();           /* the two i-dots: 49.6% and 94.9% of the wordmark width, 22% down */
         var oy=lr.top-fr.top+lr.height*0.22;
         origins=[lr.left-fr.left+lr.width*0.496, lr.left-fr.left+lr.width*0.949].map(function(x){return {x:x,y:oy}});
       }
+      var small=fr.width<600, R=Math.min(fr.width,fr.height*1.2)*0.5;
       for(var i=0;i<n;i++){
-        var ang=Math.random()*Math.PI*2, dist=38+Math.random()*52;
+        var ang=(i/n)*Math.PI*2+Math.random()*0.9, dist=R*(0.45+Math.random()*0.75);
         var el=d.createElementNS(NS,'svg');
         el.setAttribute('viewBox','341 -50 33 41'); el.setAttribute('class','sd');
         var p=d.createElementNS(NS,'path'); p.setAttribute('d',SEED); el.appendChild(p);
-        var size=16+Math.random()*30, dur=22+Math.random()*20, o=origins?origins[i%2]:null;
-        el.style.cssText='width:'+size+'px;height:'+(size*1.24)+'px;'+
-          (o?'left:'+o.x.toFixed(1)+'px;top:'+o.y.toFixed(1)+'px;':'')+
-          '--dx:'+(Math.cos(ang)*dist).toFixed(1)+'vmax;--dy:'+(Math.sin(ang)*dist*0.7).toFixed(1)+'vmax;'+
+        var size=(small?12:16)+Math.random()*(small?18:28), dur=18+Math.random()*16, o=origins?origins[i%2]:{x:fr.width/2,y:fr.height/2};
+        el.style.cssText='width:'+size.toFixed(1)+'px;height:'+(size*1.24).toFixed(1)+'px;'+
+          'left:'+o.x.toFixed(1)+'px;top:'+o.y.toFixed(1)+'px;'+
+          '--dx:'+(Math.cos(ang)*dist).toFixed(0)+'px;--dy:'+(Math.sin(ang)*dist*0.9).toFixed(0)+'px;'+
           '--rot:'+Math.round((Math.random()<.5?-1:1)*(180+Math.random()*540))+'deg;'+
           '--fx:'+Math.round(Math.random()*540)+'deg;--fy:'+Math.round(Math.random()*720)+'deg;'+
           'animation-duration:'+dur.toFixed(1)+'s;animation-delay:-'+(Math.random()*dur).toFixed(1)+'s';
@@ -50,7 +52,7 @@
   }
   if(!calm){
     root.classList.add('seeds-live');
-    spawn();
+    spawn(); window.addEventListener('load',spawn); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(spawn);
     var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(spawn,250)});
   }
 

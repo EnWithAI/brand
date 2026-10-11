@@ -331,3 +331,12 @@ html,body{overflow-x:clip;max-width:100vw}
   .slide>.blk{align-content:center!important;align-items:center}
   .slide>.title{height:auto;padding:22px 16px}
 }
+
+/* seeds: fade in near the origin, drift, fade out before the edge */
+.sd{margin:0!important;translate:-50% -50%;opacity:0}
+@keyframes spill{
+  0%{opacity:0;transform:translate3d(0,0,0) rotate(0) rotateX(0) rotateY(0) scale(.4)}
+  12%{opacity:.95}
+  70%{opacity:.8}
+  100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0) rotate(var(--rot)) rotateX(var(--fx)) rotateY(var(--fy)) scale(1.05)}
+}
